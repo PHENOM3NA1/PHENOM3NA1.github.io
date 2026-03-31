@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>PHENOMENAL MARK — The Meaningful Human Machine</title>
+<meta name="description" content="Inter-dimensional creative. Fashion. Art. Cinema. Technology. 20 years of sovereign work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;600;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ── STRIPE PAYMENT LINKS — swap these with real Stripe URLs ── */
+/* STRIPE_099  = your $0.99 payment link */
+/* STRIPE_1999 = your $19.99 payment link */
+
+:root{
+  --v:#010208;--nc:#00e8ff;--nv:#9a7aff;--ng:#ffd080;--nr:#ff5588;--ng2:#7aff47;
+  --glass:rgba(8,12,24,0.45);--gb:rgba(0,232,255,0.07);
+  --t:#e8e6e0;--tm:#908a80;--td:#484238;
+  --fd:'Outfit',sans-serif;--fs:'Cormorant Garamond',serif;--fm:'JetBrains Mono',monospace
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  background:var(--v);color:var(--t);font-family:var(--fs);overflow-x:hidden;
+  -webkit-user-select:none;-moz-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+}
+img{pointer-events:none;-webkit-user-drag:none;user-drag:none}
+::selection{background:rgba(0,232,255,0.12)}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-thumb{background:rgba(0,232,255,0.08)}
+@media print{body{display:none!important}}
+
+canvas#cosmic{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+canvas#boids{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.layer{position:relative;z-index:2;pointer-events:none}
+.layer>*{pointer-events:auto}
+
+/* ── HERO ── */
+.hero{position:absolute;top:0;left:0;width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;pointer-events:none}
+canvas#phen{max-width:92vw;pointer-events:auto;cursor:crosshair}
+.mark{font-family:var(--fd);font-size:clamp(.7rem,1.8vw,1.1rem);font-weight:500;letter-spacing:.6em;text-transform:uppercase;color:rgba(255,255,255,0.9);text-shadow:0 0 4px rgba(0,232,255,0.3),0 0 15px rgba(0,232,255,0.1);position:relative;margin-top:10px;transform:perspective(600px) rotateX(8deg) rotateY(-2deg);animation:fadeIn 2s ease 1.5s both;cursor:pointer}
+.mark::before,.mark::after{content:attr(data-t);position:absolute;top:0;left:0;width:100%;height:100%}
+.mark::before{color:var(--nc);z-index:-1;animation:g1 2.5s infinite;clip-path:polygon(0 0,100% 0,100% 30%,0 30%)}
+.mark::after{color:var(--nv);z-index:-2;animation:g2 2s infinite;clip-path:polygon(0 70%,100% 70%,100% 100%,0 100%)}
+.hsub{font-family:var(--fm);font-size:7px;color:rgba(255,255,255,0.12);letter-spacing:.4em;text-transform:uppercase;margin-top:16px;animation:fadeIn 2s ease 2s both}
+.scroll-i{position:absolute;bottom:20px;font-family:var(--fm);font-size:6px;color:rgba(0,232,255,0.08);letter-spacing:.3em;animation:pulse 3s infinite}
+
+/* ── SECTIONS ── */
+.sect{padding:80px 16px;position:relative;z-index:3}
+.st{font-family:var(--fd);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:200;letter-spacing:.1em;text-align:center;margin-bottom:4px;color:rgba(0,232,255,0.7)}
+.ss{font-size:8px;color:var(--td);letter-spacing:.25em;text-transform:uppercase;text-align:center;margin-bottom:40px;font-family:var(--fm)}
+
+/* ── GLASS ── */
+.gl{background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--gb);border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.02);transition:all .4s ease}
+.gl:hover{border-color:rgba(0,232,255,0.15);transform:translateY(-1px)}
+
+/* ── MONUMENTS ── */
+.mon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:800px;margin:0 auto}
+@media(max-width:640px){.mon-grid{grid-template-columns:1fr 1fr}}
+.mon{padding:24px 14px;text-align:center;cursor:pointer;position:relative;overflow:hidden;transition:all .3s}
+.mon::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,var(--glow) 0%,transparent 50%);opacity:0;transition:opacity .4s}
+.mon:hover::before{opacity:1}
+.mon:hover{border-color:var(--glow)!important;box-shadow:0 0 30px var(--glow),0 0 60px color-mix(in srgb,var(--glow) 30%,transparent)!important;transform:translateY(-3px)!important}
+.mon-i{font-size:24px;margin-bottom:6px;display:block;filter:drop-shadow(0 0 8px var(--glow));transition:all .3s}
+.mon:hover .mon-i{transform:scale(1.2)}
+.mon-n{font-family:var(--fd);font-size:12px;font-weight:600;letter-spacing:.1em;margin-bottom:2px}
+.mon-d{font-size:9px;color:var(--td);line-height:1.4}
+
+/* ── WORK GRID ── */
+.work-card{overflow:hidden;cursor:default;position:relative}
+.work-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.work-img canvas{width:100%;height:100%;display:block}
+.work-meta{padding:10px 12px}
+.work-date{font-family:var(--fm);font-size:8px;color:var(--nc);letter-spacing:.12em;margin-bottom:3px}
+.work-title{font-family:var(--fd);font-size:13px;font-weight:500;margin-bottom:2px}
+.work-desc{font-size:10px;color:var(--tm);line-height:1.5;font-family:var(--fs);font-style:italic}
+.work-cat{display:inline-block;font-size:6px;padding:2px 6px;border-radius:2px;margin-top:4px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--fm)}
+
+/* ── TIMELINE ── */
+.tl{max-width:700px;margin:0 auto;position:relative;padding-left:30px}
+.tl::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(0,232,255,0.12),rgba(154,122,255,0.12),transparent)}
+.tl-item{position:relative;margin-bottom:24px;padding-left:24px}
+.tl-dot{position:absolute;left:-26px;top:4px;width:8px;height:8px;border-radius:50%;border:1px solid var(--nc);background:var(--v);transition:all .3s}
+.tl-item:hover .tl-dot{background:var(--nc);box-shadow:0 0 12px var(--nc)}
+.tl-year{font-family:var(--fm);font-size:10px;color:var(--nc);letter-spacing:.1em;margin-bottom:2px}
+.tl-title{font-family:var(--fd);font-size:14px;font-weight:500;margin-bottom:2px}
+.tl-desc{font-size:11px;color:var(--tm);line-height:1.5}
+.tl-tag{display:inline-block;font-size:7px;padding:2px 6px;border-radius:3px;margin-top:3px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--fm)}
+
+/* ── FORECAST ── */
+.fc{max-width:520px;margin:0 auto;padding:22px}
+.fc-l{display:block;font-size:7px;color:rgba(0,232,255,0.4);text-transform:uppercase;letter-spacing:.2em;margin:12px 0 3px;font-family:var(--fm)}
+.fc-i{width:100%;padding:8px 11px;font-size:11px;background:rgba(2,3,10,0.8);border:1px solid rgba(0,232,255,0.06);border-radius:4px;color:var(--t);outline:none;font-family:var(--fm)}
+.fc-i:focus{border-color:rgba(0,232,255,0.2)}
+.fc-btn{width:100%;padding:11px;font-size:9px;font-weight:600;border:none;border-radius:6px;cursor:pointer;font-family:var(--fd);letter-spacing:.12em;text-transform:uppercase;transition:all .3s}
+.fc-main{background:linear-gradient(135deg,rgba(0,232,255,0.8),rgba(154,122,255,0.8));color:#000}
+.fc-alt{background:rgba(255,208,128,0.05);color:var(--ng);border:1px solid rgba(255,208,128,0.12);margin-top:5px}
+.fc-prev{margin-top:16px;padding:14px;background:rgba(0,232,255,0.01);border:1px solid rgba(0,232,255,0.04);border-radius:7px;position:relative;overflow:hidden}
+.fc-blur{position:absolute;inset:0;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);background:linear-gradient(180deg,transparent,rgba(1,2,8,0.88) 60%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:12px;z-index:2;border-radius:7px}
+.fc-blur.off{display:none}
+.fc-g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px}
+.fc-s{text-align:center;padding:5px 2px}
+.fc-s small{font-size:6px;color:var(--td);letter-spacing:.1em;text-transform:uppercase;display:block;font-family:var(--fm)}
+.fc-s b{font-size:12px;font-family:var(--fm);font-weight:300;display:block;margin-top:1px}
+
+/* ── ADMIN PANEL ── */
+#adminPanel{position:fixed;top:0;right:0;width:min(420px,100vw);height:100vh;background:rgba(1,2,8,0.97);border-left:1px solid rgba(0,232,255,0.08);z-index:1000;transform:translateX(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);overflow-y:auto;padding:24px;font-family:var(--fm)}
+#adminPanel.open{transform:translateX(0)}
+.adm-h{font-family:var(--fd);font-size:11px;color:rgba(0,232,255,0.5);letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px}
+.adm-close{position:absolute;top:16px;right:16px;background:none;border:1px solid rgba(0,232,255,0.1);color:var(--tm);padding:4px 8px;cursor:pointer;font-size:8px;font-family:var(--fm);border-radius:3px}
+.adm-sect{margin-top:20px;padding-top:16px;border-top:1px solid rgba(0,232,255,0.04)}
+.adm-label{font-size:7px;color:var(--td);letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px}
+.adm-wallet{font-size:9px;color:var(--nc);letter-spacing:.05em;word-break:break-all;padding:8px;background:rgba(0,232,255,0.02);border:1px solid rgba(0,232,255,0.06);border-radius:4px;margin-bottom:6px;cursor:pointer}
+.adm-wallet:hover{background:rgba(0,232,255,0.04)}
+.adm-link{display:block;font-size:9px;color:var(--nv);text-decoration:none;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.02);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.adm-link:hover{color:var(--nc)}
+.adm-btn{width:100%;padding:8px;font-size:8px;background:rgba(0,232,255,0.05);border:1px solid rgba(0,232,255,0.1);color:var(--nc);cursor:pointer;border-radius:4px;font-family:var(--fm);letter-spacing:.1em;margin-top:6px;transition:all .3s}
+.adm-btn:hover{background:rgba(0,232,255,0.1)}
+#adminPrompt{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:999;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+#adminPrompt.show{display:flex}
+#adminPrompt p{font-size:9px;color:var(--tm);letter-spacing:.15em;text-transform:uppercase;font-family:var(--fm);text-align:center;max-width:300px;line-height:1.6}
+#adminPrompt button{padding:10px 24px;background:linear-gradient(135deg,rgba(0,232,255,0.15),rgba(154,122,255,0.15));border:1px solid rgba(0,232,255,0.2);color:var(--nc);cursor:pointer;font-family:var(--fm);font-size:9px;letter-spacing:.15em;border-radius:4px;transition:all .3s}
+#adminPrompt button:hover{background:rgba(0,232,255,0.2)}
+#adminStatus{font-size:8px;color:rgba(0,232,255,0.4);font-family:var(--fm);letter-spacing:.1em;min-height:16px}
+
+/* ── FOOTER ── */
+.foot{position:relative;z-index:3;padding:24px 16px;text-align:center;border-top:1px solid rgba(0,232,255,0.03)}
+.foot a{font-size:7px;color:var(--td);letter-spacing:.15em;text-transform:uppercase;text-decoration:none;font-family:var(--fm);margin:0 8px;transition:color .3s}
+.foot a:hover{color:var(--nc)}
+.foot-c{font-size:5px;color:rgba(255,255,255,0.03);margin-top:8px;letter-spacing:.2em;font-family:var(--fm)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes g1{0%,100%{transform:translate(0)}20%{transform:translate(-2px,1px)}50%{transform:translate(1px,-1px)}80%{transform:translate(-1px,1px)}}
+@keyframes g2{0%,100%{transform:translate(0)}30%{transform:translate(1px,-1px)}60%{transform:translate(-2px,1px)}}
+@keyframes pulse{0%,100%{opacity:.07}50%{opacity:.18}}
+</style>
+</head>
+<body>
+
+<!-- ── BACKGROUND LAYERS ── -->
+<canvas id="cosmic"></canvas>
+<canvas id="boids"></canvas>
+
+<div class="layer">
+  <!-- ── HERO ── -->
+  <div class="hero" id="heroText">
+    <canvas id="phen" width="900" height="180" style="animation:fadeIn 1.5s ease .3s both"></canvas>
+    <div class="mark" data-t="MARK" id="markEl">MARK</div>
+    <div class="hsub" id="heroSub">Inter-Dimensional · Multi-Disciplinary · Conduit</div>
+    <div class="scroll-i">↓ ENTER THE MULTIVERSE ↓</div>
+  </div>
+  <div style="height:100vh"></div>
+
+  <!-- ── DISCIPLINES ── -->
+  <div class="sect" id="discSect">
+    <div class="st">Disciplines</div>
+    <div class="ss">Fashion · Art · Cinematography · Technology</div>
+    <div class="mon-grid">
+      <div class="gl mon" style="--glow:rgba(255,208,128,0.2)" onclick="shatter(this)">
+        <span class="mon-i" style="color:var(--ng)">△</span>
+        <div class="mon-n" style="color:var(--ng)">Fashion</div>
+        <div class="mon-d">Clothing as frequency. Wearable philosophy encoded in thread.</div>
+      </div>
+      <div class="gl mon" style="--glow:rgba(154,122,255,0.2)" onclick="shatter(this)">
+        <span class="mon-i" style="color:var(--nv)">◯</span>
+        <div class="mon-n" style="color:var(--nv)">Art</div>
+        <div class="mon-d">Blockchain-native & physical. Image as portal to other dimensions.</div>
+      </div>
+      <div class="gl mon" style="--glow:rgba(0,232,255,0.2)" onclick="shatter(this)">
+        <span class="mon-i" style="color:var(--nc)">▽</span>
+        <div class="mon-n" style="color:var(--nc)">Cinema</div>
+        <div class="mon-d">Vertical films. Music video. Ceremony. First principles direction.</div>
+      </div>
+      <div class="gl mon" style="--glow:rgba(122,255,71,0.2)" onclick="shatter(this)">
+        <span class="mon-i" style="color:var(--ng2)">⬡</span>
+        <div class="mon-n" style="color:var(--ng2)">Technology</div>
+        <div class="mon-d">AI agent architectures. Sacred code. Autonomous swarm intelligence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SELECTED WORK ── -->
+  <div class="sect" id="workSect">
+    <div class="st">Selected Work</div>
+    <div class="ss">Museum Grade · Verified On-Chain · Chronologically Authenticated</div>
+    <div id="workGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-width:900px;margin:0 auto"></div>
+  </div>
+
+  <!-- ── TIMELINE ── -->
+  <div class="sect" id="tlSect">
+    <div class="st">20-Year Arc</div>
+    <div class="ss">A sovereign creative body of work, documented across disciplines</div>
+    <div class="tl" id="timeline"></div>
+  </div>
+
+  <!-- ── FORECAST ENGINE ── -->
+  <div class="sect" id="fcSect">
+    <div class="st">Substrate Alignment Engine</div>
+    <div class="ss">Ancient Enhancement Technology · Astronomical Navigation</div>
+    <div class="gl fc" id="fcCard">
+      <div style="text-align:center;margin-bottom:12px">
+        <div style="font-family:var(--fd);font-size:11px;color:rgba(0,232,255,0.5);letter-spacing:.08em">The Meaningful Human Machine</div>
+      </div>
+      <label class="fc-l">Date of Birth</label>
+      <input type="date" class="fc-i" id="fcDob">
+      <label class="fc-l">Sex</label>
+      <div style="display:flex;gap:6px;margin-top:3px">
+        <div class="fc-i" style="flex:1;cursor:pointer;text-align:center;font-size:10px" onclick="this.style.borderColor='rgba(0,232,255,0.2)';this.nextElementSibling.style.borderColor='rgba(0,232,255,0.06)';window._sex='m'">Male</div>
+        <div class="fc-i" style="flex:1;cursor:pointer;text-align:center;font-size:10px" onclick="this.style.borderColor='rgba(0,232,255,0.2)';this.previousElementSibling.style.borderColor='rgba(0,232,255,0.06)';window._sex='f'">Female</div>
+      </div>
+      <label class="fc-l">Location</label>
+      <select class="fc-i" id="fcLoc">
+        <option value="">Select...</option>
+        <option value="34">Los Angeles</option><option value="40">New York</option>
+        <option value="51">London</option><option value="35">Tokyo</option>
+        <option value="30">Cairo</option><option value="25">Miami</option>
+        <option value="33">Atlanta</option><option value="41">Chicago</option>
+      </select>
+      <div class="fc-prev" id="fcPrev">
+        <div class="fc-g3">
+          <div class="fc-s"><small>Moon Phase</small><b id="pM">—</b></div>
+          <div class="fc-s"><small>Kp Index</small><b id="pK">—</b></div>
+          <div class="fc-s"><small>Solar Cycle</small><b id="pS">—</b></div>
+        </div>
+        <div style="font-size:10px;color:var(--tm);line-height:1.5" id="pG">Enter data to begin alignment...</div>
+        <div class="fc-blur" id="fcBl">
+          <div style="font-size:8px;color:var(--nc);letter-spacing:.15em;opacity:.5;margin-bottom:5px">FULL FORECAST LOCKED</div>
+          <button class="fc-btn fc-main" onclick="pay(.99)" style="max-width:240px">$0.99 — Quick Read</button>
+          <button class="fc-btn fc-alt" onclick="pay(19.99)" style="max-width:240px;font-size:8px">$19.99 — Full Alignment Report</button>
+        </div>
+      </div>
+      <button class="fc-btn fc-main" style="margin-top:12px" onclick="genFC()">Generate Alignment</button>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="foot">
+    <a href="#discSect">Fashion</a>
+    <a href="#workSect">Art</a>
+    <a href="#discSect">Cinema</a>
+    <a href="#discSect">Tech</a>
+    <a href="#fcSect">Forecast</a>
+    <div class="foot-c">© 2026 PHENOMENAL MARK · THE MEANINGFUL HUMAN MACHINE · ALL RIGHTS RESERVED</div>
+  </div>
+</div>
+
+<!-- ── ADMIN PROMPT ── -->
+<div id="adminPrompt">
+  <div style="font-size:7px;color:rgba(0,232,255,0.15);letter-spacing:.4em;font-family:var(--fm)">PHENOMENAL MARK</div>
+  <p>Admin access requires cryptographic proof of identity.<br>Sign with the authorized wallet to continue.</p>
+  <button onclick="connectWallet()">Connect Wallet & Sign</button>
+  <div id="adminStatus"></div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminPanel">
+  <button class="adm-close" onclick="closeAdmin()">✕ CLOSE</button>
+  <div style="font-size:7px;color:rgba(0,232,255,0.2);letter-spacing:.4em;margin-bottom:16px;font-family:var(--fm)">ADMIN</div>
+  <div class="adm-h">Wallet Addresses</div>
+  <div class="adm-sect">
+    <div class="adm-label">Primary (ETH / Base)</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0x8aEA4d2a686a82AE455C09e372920a628848F667">0x8aEA4d2a686a82AE455C09e372920a628848F667</div>
+    <div class="adm-label">Collections</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0x9ac9a08a8ff54e1355e5bcecfd0ead8f5d74f7d6">ashgames: 0x9ac9a08a8ff54e1355e5bcecfd0ead8f5d74f7d6</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0xdbcf22b6ec5e2ed7b1a03ee815694930302d278e">misoesis: 0xdbcf22b6ec5e2ed7b1a03ee815694930302d278e</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0x6b92a847401fb701f818e95b9b26e39e116a0efb">misoesis-editions (Base): 0x6b92a847401fb701f818e95b9b26e39e116a0efb</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0xfdf03360a6739b2fbd6da97fc04a1f10b19bf8cb">memoriesareforever: 0xfdf03360a6739b2fbd6da97fc04a1f10b19bf8cb</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0xf0fbe86c6221aaa91a1916fde8e15424646b363c">savagexnation (Base): 0xf0fbe86c6221aaa91a1916fde8e15424646b363c</div>
+    <div class="adm-wallet" onclick="navigator.clipboard.writeText(this.dataset.full)" data-full="0xac6689564fda7bf44e839b18728d2d6fd8b52114">eff-vol-1: 0xac6689564fda7bf44e839b18728d2d6fd8b52114</div>
+  </div>
+  <div class="adm-sect">
+    <div class="adm-label">Bitcoin Ordinals — Full Inscription IDs</div>
+    <div style="font-size:8px;color:var(--tm);line-height:1.8;font-family:var(--fm)">
+      88017854 · 87946489 · 70890911 · 78733 · 115668 · 147011 · 137056<br>
+      83690798 · 14017261 · 72611985 · 75938353 · 77099189 · 77873552<br>
+      77559500 · 69527168 · 69218256 · 69454630 · 80940851 · 77007062
+    </div>
+  </div>
+  <div class="adm-sect">
+    <div class="adm-label">Film Archive</div>
+    <span class="adm-link" onclick="window.open('https://vimeo.com/343265140','_blank')">vimeo.com/343265140 — Director / Editor / Cinematographer</span>
+    <span class="adm-link" onclick="window.open('https://vimeo.com/69104510','_blank')">vimeo.com/69104510 — Director / Editor / Cinematographer</span>
+    <span class="adm-link" onclick="window.open('https://youtube.com/watch?v=QPaAwmSaYdE','_blank')">youtube — Producer / 1st AD / BTS</span>
+    <span class="adm-link" onclick="window.open('https://youtu.be/V1x0sYZLY4s','_blank')">youtube — Editor</span>
+  </div>
+  <div class="adm-sect">
+    <div class="adm-label">AI / Hackathon</div>
+    <span class="adm-link" onclick="window.open('https://living-swarm-demo.vercel.app','_blank')">living-swarm-demo.vercel.app — Synthesis 2026</span>
+    <span class="adm-link" onclick="window.open('https://living-swarm-demo.vercel.app/swap','_blank')">living-swarm-demo.vercel.app/swap</span>
+  </div>
+  <div class="adm-sect">
+    <div class="adm-label">OpenSea Collections</div>
+    <span class="adm-link" onclick="window.open('https://opensea.io/collection/ashgames','_blank')">opensea — ashgames</span>
+    <span class="adm-link" onclick="window.open('https://opensea.io/collection/misoesis','_blank')">opensea — misoesis</span>
+    <span class="adm-link" onclick="window.open('https://opensea.io/collection/afterdawn-beyondmeta','_blank')">opensea — afterdawn-beyondmeta</span>
+    <span class="adm-link" onclick="window.open('https://opensea.io/collection/memoriesareforever','_blank')">opensea — memoriesareforever</span>
+    <span class="adm-link" onclick="window.open('https://opensea.io/collection/savagexnation','_blank')">opensea — savagexnation</span>
+    <span class="adm-link" onclick="window.open('https://opensea.io/collection/why-do-i-create','_blank')">opensea — why-do-i-create</span>
+  </div>
+  <div class="adm-sect">
+    <div class="adm-label">Stripe — Update Payment Links</div>
+    <div style="font-size:8px;color:var(--tm);margin-bottom:6px">Edit window.STRIPE_099 and window.STRIPE_1999</div>
+    <button class="adm-btn" onclick="alert('Open DevTools console to update STRIPE_099 and STRIPE_1999 variables')">Configure Stripe Links</button>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+'use strict';
+
+// ══════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════
+const ADMIN_WALLET = '0x8aEA4d2a686a82AE455C09e372920a628848F667';
+window.STRIPE_099  = 'https://buy.stripe.com/YOUR_099_LINK';   // replace
+window.STRIPE_1999 = 'https://buy.stripe.com/YOUR_1999_LINK';  // replace
+
+// ══════════════════════════════════════════════════
+// PROTECTION
+// ══════════════════════════════════════════════════
+document.addEventListener('contextmenu',  e => e.preventDefault());
+document.addEventListener('dragstart',    e => e.preventDefault());
+document.addEventListener('selectstart',  e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['I','J','C'].includes(e.key))||(e.ctrlKey&&e.key==='s'))
+    e.preventDefault();
+});
+
+// ══════════════════════════════════════════════════
+// THREE.JS — COSMIC ATMOSPHERE
+// ══════════════════════════════════════════════════
+const W=()=>window.innerWidth, H=()=>window.innerHeight;
+const cvs = document.getElementById('cosmic');
+const ren = new THREE.WebGLRenderer({canvas:cvs, antialias:false, alpha:false});
+ren.setSize(W(),H()); ren.setPixelRatio(Math.min(window.devicePixelRatio,1.5));
+ren.setClearColor(0x010208,1);
+const scene = new THREE.Scene();
+const cam   = new THREE.PerspectiveCamera(55,W()/H(),.1,200);
+cam.position.set(0,0,8);
+
+function hslRGB(h,s,l){let r,g,b;if(!s)r=g=b=l;else{const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q,f=(p,q,t)=>{if(t<0)t++;if(t>1)t--;return t<1/6?p+(q-p)*6*t:t<.5?q:t<2/3?p+(q-p)*(2/3-t)*6:p};r=f(p,q,h+1/3);g=f(p,q,h);b=f(p,q,h-1/3)}return[r,g,b]}
+function cyberColor(t,i,n){const hues=[.52,.55,.58,.62,.72,.78,.48,.50];const h=hues[Math.floor((i/n)*hues.length)%hues.length]+t*.002;const s=.2+Math.sin(i*.1+t)*.1;const l=.5+Math.sin(i*.07+t*.5)*.2;return hslRGB(h%1,s,l)}
+
+// Distant nebula
+const nebN=400; const nebGeo=new THREE.BufferGeometry();
+const nebPos=new Float32Array(nebN*3),nebCol=new Float32Array(nebN*3),nebSz=new Float32Array(nebN);
+for(let i=0;i<nebN;i++){const r=5+Math.random()*14,th=Math.random()*Math.PI*2,ph=Math.acos(Math.random()*2-1);nebPos[i*3]=r*Math.sin(ph)*Math.cos(th);nebPos[i*3+1]=r*Math.sin(ph)*Math.sin(th)*.4;nebPos[i*3+2]=r*Math.cos(ph)-8;const c=cyberColor(0,i,nebN);nebCol[i*3]=c[0];nebCol[i*3+1]=c[1];nebCol[i*3+2]=c[2];nebSz[i]=10+Math.random()*25}
+nebGeo.setAttribute('position',new THREE.BufferAttribute(nebPos,3));nebGeo.setAttribute('color',new THREE.BufferAttribute(nebCol,3));nebGeo.setAttribute('aSize',new THREE.BufferAttribute(nebSz,1));
+const nebMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,vertexColors:true,uniforms:{uTime:{value:0}},vertexShader:`attribute float aSize;uniform float uTime;varying vec3 vC;varying float vA;void main(){vC=color;vec3 p=position;p.x+=sin(uTime*.015+p.z*.08)*2.;p.y+=cos(uTime*.012+p.x*.06)*.8;vec4 mv=modelViewMatrix*vec4(p,1.);gl_PointSize=aSize*(70./-mv.z);gl_Position=projectionMatrix*mv;vA=.025+sin(uTime*.04+p.z)*.015;}`,fragmentShader:`varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-vec2(.5));if(d>.5)discard;float g=exp(-d*2.);gl_FragColor=vec4(vC,g*vA);}`});
+scene.add(new THREE.Points(nebGeo,nebMat));
+
+// Deep star field (5K — atmospheric only, not interactive)
+const DN=W()<768?2000:5000;
+const dGeo=new THREE.BufferGeometry();
+const dPos=new Float32Array(DN*3),dCol=new Float32Array(DN*3),dSz=new Float32Array(DN);
+for(let i=0;i<DN;i++){const r=2+Math.random()*20,th=Math.random()*Math.PI*2,ph=Math.acos(Math.random()*2-1);dPos[i*3]=r*Math.sin(ph)*Math.cos(th);dPos[i*3+1]=r*Math.sin(ph)*Math.sin(th)*.6;dPos[i*3+2]=r*Math.cos(ph)-5;const c=cyberColor(0,i,DN);dCol[i*3]=c[0];dCol[i*3+1]=c[1];dCol[i*3+2]=c[2];dSz[i]=.15+Math.random()*.5}
+dGeo.setAttribute('position',new THREE.BufferAttribute(dPos,3));dGeo.setAttribute('color',new THREE.BufferAttribute(dCol,3));dGeo.setAttribute('aSize',new THREE.BufferAttribute(dSz,1));
+const dMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,vertexColors:true,uniforms:{uTime:{value:0}},vertexShader:`attribute float aSize;uniform float uTime;varying vec3 vC;varying float vA;void main(){vC=color;vec3 p=position;float t=uTime*.05+p.x;p.x+=sin(t+p.z*.2)*.03;p.y+=cos(t*.7+p.y)*.03;vec4 mv=modelViewMatrix*vec4(p,1.);gl_PointSize=aSize*(100./-mv.z);gl_Position=projectionMatrix*mv;vA=.6+.4/(1.+length(p)*.1);}`,fragmentShader:`varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-vec2(.5));if(d>.5)discard;float c=exp(-d*12.);gl_FragColor=vec4(vC,c*vA);}`});
+scene.add(new THREE.Points(dGeo,dMat));
+
+// Slow camera drift
+let scrollRaw=0,scrollP=0;
+window.addEventListener('scroll',()=>{scrollRaw=window.scrollY;scrollP=Math.min(1,scrollRaw/(H()*.5))});
+window.addEventListener('resize',()=>{cam.aspect=W()/H();cam.updateProjectionMatrix();ren.setSize(W(),H());initBoids()});
+
+const cosmicClock=new THREE.Clock();
+function renderCosmic(){
+  requestAnimationFrame(renderCosmic);
+  const t=cosmicClock.getElapsedTime();
+  nebMat.uniforms.uTime.value=t;
+  dMat.uniforms.uTime.value=t;
+  const htEl=document.getElementById('heroText');
+  if(htEl)htEl.style.opacity=Math.max(0,1-scrollP*2.5);
+  cam.position.z=8-scrollRaw/H()*2;
+  cam.position.x=mNorm.x*.2;cam.position.y=mNorm.y*.15;
+  cam.lookAt(0,0,cam.position.z-10);
+  ren.render(scene,cam);
+}
+renderCosmic();
+
+// ══════════════════════════════════════════════════
+// BOIDS — MULTIVERSAL TREE + CURSOR FLOCKING
+// Particles form a cosmic tree at rest.
+// Galaxy clusters ("fruit") orbit at branch tips.
+// Cursor: nearby boids flock toward it.
+// Click:  all boids explode outward, then drift back.
+// ══════════════════════════════════════════════════
+const boidsCanvas = document.getElementById('boids');
+const bc = boidsCanvas.getContext('2d');
+const BOID_N = W() < 768 ? 800 : 1600;
+
+const mNorm = {x:0, y:0};
+const mScreen = {x:W()/2, y:H()/2};
+let exploding = false, explodeT = 0;
+
+document.addEventListener('mousemove', e => {
+  mScreen.x = e.clientX; mScreen.y = e.clientY;
+  mNorm.x = (e.clientX/W())*2-1;
+  mNorm.y = -(e.clientY/H())*2+1;
+});
+document.addEventListener('click', () => { exploding = true; explodeT = 0; });
+
+// Boid data (flat arrays for performance)
+let bx, by, bvx, bvy, bhx, bhy, bhue, bsize, btype;
+
+function buildTree() {
+  const cx = W()/2, bot = H()*0.88;
+  const targets = [];
+
+  // TRUNK (20%)
+  const trN = Math.floor(BOID_N * 0.20);
+  for (let i=0; i<trN; i++) {
+    const t = i/trN;
+    const sway = (Math.random()-.5) * (8+t*12);
+    targets.push({ x: cx+sway, y: bot - t*H()*0.62, type:0 });
+  }
+
+  // BRANCHES (50%) — 6 branches, fibonacci-inspired angles
+  const branches = [
+    { ox:cx, oy:bot-H()*.30, a:-Math.PI*.32, len:H()*.22 },
+    { ox:cx, oy:bot-H()*.30, a:-Math.PI*.68, len:H()*.20 },
+    { ox:cx, oy:bot-H()*.42, a:-Math.PI*.22, len:H()*.17 },
+    { ox:cx, oy:bot-H()*.42, a:-Math.PI*.78, len:H()*.17 },
+    { ox:cx, oy:bot-H()*.54, a:-Math.PI*.12, len:H()*.14 },
+    { ox:cx, oy:bot-H()*.54, a:-Math.PI*.88, len:H()*.14 },
+  ];
+  const bPerB = Math.floor(BOID_N * 0.50 / branches.length);
+  branches.forEach(b => {
+    for (let i=0; i<bPerB; i++) {
+      const t = i/bPerB;
+      const spread = 4 + t*12;
+      targets.push({
+        x: b.ox + Math.cos(b.a)*b.len*t + (Math.random()-.5)*spread,
+        y: b.oy + Math.sin(b.a)*b.len*t + (Math.random()-.5)*spread,
+        type:1
+      });
+    }
+  });
+
+  // GALAXY FRUIT clusters at branch tips (30%)
+  const tips = branches.map(b => ({
+    x: b.ox + Math.cos(b.a)*b.len,
+    y: b.oy + Math.sin(b.a)*b.len
+  }));
+  const fPerTip = Math.floor(BOID_N * 0.30 / tips.length);
+  tips.forEach(tip => {
+    for (let i=0; i<fPerTip; i++) {
+      const a = Math.random()*Math.PI*2;
+      const r = Math.pow(Math.random(), .5) * 28; // denser core
+      targets.push({ x: tip.x+Math.cos(a)*r, y: tip.y+Math.sin(a)*r, type:2, fx:tip.x, fy:tip.y, angle:a, rad:r });
+    }
+  });
+
+  return targets;
+}
+
+function initBoids() {
+  boidsCanvas.width = W(); boidsCanvas.height = H();
+  const targets = buildTree();
+  const n = targets.length;
+
+  bx   = new Float32Array(n); by   = new Float32Array(n);
+  bvx  = new Float32Array(n); bvy  = new Float32Array(n);
+  bhx  = new Float32Array(n); bhy  = new Float32Array(n);
+  bhue = new Float32Array(n); bsize = new Float32Array(n);
+  btype = new Uint8Array(n);
+
+  for (let i=0; i<n; i++) {
+    bhx[i] = targets[i].x; bhy[i] = targets[i].y;
+    bx[i]  = Math.random()*W(); by[i] = Math.random()*H();
+    bvx[i] = (Math.random()-.5)*2; bvy[i] = (Math.random()-.5)*2;
+    btype[i] = targets[i].type||0;
+    bhue[i] = btype[i]===2 ? (.65+Math.random()*.2)%1 :
+              btype[i]===1 ? (.52+Math.random()*.12) :
+              (.72+Math.random()*.1);
+    bsize[i] = btype[i]===2 ? 1.0+Math.random()*1.2 : 0.6+Math.random()*.8;
+  }
+}
+initBoids();
+
+const INFLUENCE_R = 100; // cursor influence radius
+const FLOCK_STRENGTH = 0.035;
+const HOME_STRENGTH  = 0.012;
+const DAMPING        = 0.88;
+const EXPLODE_DECAY  = 0.94;
+
+let animT = 0;
+function animBoids() {
+  requestAnimationFrame(animBoids);
+  animT++;
+
+  // Fading trail (not full clear — creates comet-tail effect)
+  bc.fillStyle = 'rgba(1,2,8,0.18)';
+  bc.fillRect(0,0,W(),H());
+
+  explodeT++;
+  if(exploding && explodeT > 80) exploding = false;
+
+  const n = bx.length;
+  for (let i=0; i<n; i++) {
+    // 1. Home spring force
+    let fx = (bhx[i]-bx[i]) * HOME_STRENGTH;
+    let fy = (bhy[i]-by[i]) * HOME_STRENGTH;
+
+    // 2. Cursor attraction / flocking
+    const cdx = mScreen.x - bx[i];
+    const cdy = mScreen.y - by[i];
+    const cd2 = cdx*cdx + cdy*cdy;
+    const cd  = Math.sqrt(cd2);
+    if (cd < INFLUENCE_R) {
+      const strength = FLOCK_STRENGTH * (1 - cd/INFLUENCE_R);
+      fx += cdx/cd * strength;
+      fy += cdy/cd * strength;
+    }
+
+    // 3. Explosion burst
+    if (exploding && explodeT < 20) {
+      const edx = bx[i] - mScreen.x;
+      const edy = by[i] - mScreen.y;
+      const ed  = Math.sqrt(edx*edx+edy*edy)+1;
+      const burst = (20 - explodeT) * 0.5;
+      bvx[i] += (edx/ed) * burst * (0.5+Math.random());
+      bvy[i] += (edy/ed) * burst * (0.5+Math.random());
+    }
+
+    // 4. Galaxy fruit orbit (type 2) — extra swirl
+    if(btype[i]===2 && !exploding) {
+      const ox = bhx[i] - bx[i], oy = bhy[i] - by[i];
+      const od = Math.sqrt(ox*ox+oy*oy)+1;
+      // Tangential force for orbit
+      bvx[i] += (-oy/od) * 0.008;
+      bvy[i] += ( ox/od) * 0.008;
+    }
+
+    // Integrate
+    bvx[i] = (bvx[i] + fx) * (exploding ? EXPLODE_DECAY : DAMPING);
+    bvy[i] = (bvy[i] + fy) * (exploding ? EXPLODE_DECAY : DAMPING);
+    bx[i] += bvx[i]; by[i] += bvy[i];
+
+    // Draw
+    const speed = Math.sqrt(bvx[i]*bvx[i]+bvy[i]*bvy[i]);
+    const hShift = speed * 0.08;
+    const h = (bhue[i] + animT*.0004 + hShift) % 1;
+    const l = btype[i]===2 ? 0.62+speed*.04 : 0.55+speed*.03;
+    const a = Math.min(0.9, 0.3 + (1-Math.min(1,speed*0.3)) * 0.6);
+    const [r,g,b2] = hslRGB(h,.4,l);
+    const sz = bsize[i] * (1 + Math.min(speed,.8)*.3);
+
+    bc.beginPath();
+    bc.arc(bx[i], by[i], sz, 0, 6.28);
+    bc.fillStyle = `rgba(${r*255|0},${g*255|0},${b2*255|0},${a})`;
+    bc.fill();
+
+    // Glow for fruit particles
+    if(btype[i]===2 && speed<1.5) {
+      bc.beginPath();
+      bc.arc(bx[i], by[i], sz*2.5, 0, 6.28);
+      bc.fillStyle = `rgba(${r*255|0},${g*255|0},${b2*255|0},0.04)`;
+      bc.fill();
+    }
+  }
+}
+animBoids();
+
+// ══════════════════════════════════════════════════
+// PHENOMENAL TEXT PARTICLES
+// ══════════════════════════════════════════════════
+(function(){
+  const tc=document.getElementById('phen'), ctx=tc.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio,2);
+  tc.width=900*dpr; tc.height=180*dpr; ctx.scale(dpr,dpr);
+  ctx.fillStyle='#fff'; ctx.font='900 100px Outfit';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('PHENOMENAL',450,90);
+  const id=ctx.getImageData(0,0,tc.width,tc.height), pts=[];
+  for(let y=0;y<tc.height;y+=2.5*dpr)for(let x=0;x<tc.width;x+=2.5*dpr)
+    if(id.data[(y*tc.width+x)*4+3]>128) pts.push({ox:x/dpr,oy:y/dpr});
+  ctx.clearRect(0,0,900,180);
+  const P=pts.map(p=>({x:Math.random()*900,y:Math.random()*180,tx:p.ox,ty:p.oy,vx:0,vy:0,h:(.52+Math.random()*.26)%1,s:.4+Math.random()*.6}));
+  let tMx={x:-999,y:-999};
+  tc.addEventListener('mousemove',e=>{const r=tc.getBoundingClientRect();tMx.x=(e.clientX-r.left)/r.width*900;tMx.y=(e.clientY-r.top)/r.height*180});
+  tc.addEventListener('mouseleave',()=>{tMx.x=-999});
+  tc.addEventListener('click',()=>P.forEach(p=>{p.vx+=(Math.random()-.5)*20;p.vy+=(Math.random()-.5)*20}));
+  function aT(){
+    requestAnimationFrame(aT); ctx.clearRect(0,0,900,180);
+    const t=performance.now()*.001;
+    P.forEach(p=>{
+      p.vx+=(p.tx-p.x)*.04; p.vy+=(p.ty-p.y)*.04;
+      if(tMx.x>-900){const dx=p.x-tMx.x,dy=p.y-tMx.y,d=Math.sqrt(dx*dx+dy*dy);if(d<80){const f=80/Math.max(d,4);p.vx+=dx/d*f*2;p.vy+=dy/d*f*2}}
+      p.vx*=.90; p.vy*=.90; p.x+=p.vx; p.y+=p.vy;
+      const h=(p.h+t*.005)%1;
+      const[r,g,b2]=hslRGB(h,.35,.72);
+      const dist=Math.sqrt((p.tx-p.x)**2+(p.ty-p.y)**2);
+      const a=Math.max(.15,1-dist/70);
+      ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.28);
+      ctx.fillStyle=`rgba(${r*255|0},${g*255|0},${b2*255|0},${a})`;ctx.fill();
+    });
+  }aT();
+})();
+
+// ══════════════════════════════════════════════════
+// MARK GLITCH + SUBTITLE CYCLE
+// ══════════════════════════════════════════════════
+const GC='!@#$%<>?/01█▓░';
+const mEl=document.getElementById('markEl');
+setInterval(()=>{
+  const f=performance.now();
+  if(Math.sin(f*.004)>.78||Math.sin(f*.009)>.88){
+    let r='';for(let i=0;i<4;i++)r+=Math.random()>.3?'MARK'[i]:GC[Math.floor(Math.random()*GC.length)];
+    mEl.textContent=r;mEl.setAttribute('data-t',r);
+  }else{mEl.textContent='MARK';mEl.setAttribute('data-t','MARK')}
+},70);
+
+// Admin trigger: click MARK 5× in 3 seconds
+let markClicks=0, markTimer=null;
+mEl.addEventListener('click',()=>{
+  markClicks++;
+  if(markTimer)clearTimeout(markTimer);
+  markTimer=setTimeout(()=>{markClicks=0},3000);
+  if(markClicks>=5){markClicks=0;document.getElementById('adminPrompt').classList.add('show')}
+});
+
+const subs=[
+  'Inter-Dimensional · Multi-Disciplinary · Conduit',
+  'Fashion · Art · Cinematography · Technology',
+  'Authenticity Rises Above All',
+  'The Body Is A Frequency Gate',
+  'Where Computation Meets Consciousness',
+  'Blockchain · Physical · Digital · Sacred',
+  'First Principles · Original Code · 20 Years Deep',
+  'Sovereign Creative · Visionary Pioneer',
+];
+let si=0; const sEl=document.getElementById('heroSub');
+function scramble(tgt){let f=0;const iv=setInterval(()=>{f++;let r='';for(let i=0;i<tgt.length;i++)r+=f>22*(i/tgt.length)?tgt[i]:GC[Math.floor(Math.random()*GC.length)];sEl.textContent=r;if(f>=28)clearInterval(iv)},40)}
+setInterval(()=>{si=(si+1)%subs.length;scramble(subs[si])},5000);
+
+function shatter(el){el.style.transform='scale(0.95)';el.style.filter='brightness(3)';setTimeout(()=>{el.style.transform='scale(1.05)';el.style.opacity='0';el.style.filter='brightness(5)'},100);setTimeout(()=>{el.style.transform='';el.style.opacity='1';el.style.filter='';document.getElementById('workSect').scrollIntoView({behavior:'smooth'})},600)}
+
+// ══════════════════════════════════════════════════
+// WORK GRID — Museum Grade
+// Scrubbed of personal links; dates & descriptions only
+// ══════════════════════════════════════════════════
+const works = [
+  {
+    date:'2017',
+    title:'Physical Studies I–VII',
+    desc:'Seven mixed-media works on canvas. Raw computational aesthetics meet physical materiality at the origin of the practice.',
+    cat:'PHYSICAL ART', cl:'var(--nv)', col:'rgba(154,122,255,0.15)'
+  },
+  {
+    date:'2018',
+    title:'Genesis Canvas — Blockchain',
+    desc:'First on-chain digital works. Permanent image as statement. Digital provenance before the wave.',
+    cat:'BLOCKCHAIN ART', cl:'var(--nc)', col:'rgba(0,232,255,0.12)'
+  },
+  {
+    date:'2019',
+    title:'Director / Cinematographer [Film I]',
+    desc:'Cinematographic study in vertical format. Ceremony as cinema. Private commission, unreleased.',
+    cat:'CINEMA', cl:'var(--nc)', col:'rgba(0,232,255,0.10)'
+  },
+  {
+    date:'2021',
+    title:'ashgames Collection',
+    desc:'Ethereum-native generative art collection. On-chain provenance. Multi-piece series exploring game theory through visual language.',
+    cat:'ETH NFT', cl:'var(--nv)', col:'rgba(154,122,255,0.12)'
+  },
+  {
+    date:'2021',
+    title:'misoesis Series',
+    desc:'Philosophy encoded in form. Ethereum and Base network editions. Extended series across two contract deployments.',
+    cat:'ETH / BASE', cl:'var(--nv)', col:'rgba(154,122,255,0.12)'
+  },
+  {
+    date:'2021',
+    title:'Ordinals — Bitcoin Inscription',
+    desc:'Early Bitcoin blockchain inscription art. Inscriptions documented from block ~69M onward. Among the earliest on-chain Bitcoin art records.',
+    cat:'BITCOIN ORDINALS', cl:'var(--ng)', col:'rgba(255,208,128,0.12)'
+  },
+  {
+    date:'2022',
+    title:'Physical Studies 2022',
+    desc:'Large-format physical works. Return to material form after digital-native period. Documentation July 2022.',
+    cat:'PHYSICAL ART', cl:'var(--nv)', col:'rgba(154,122,255,0.15)'
+  },
+  {
+    date:'2022',
+    title:'afterdawn · beyondmeta · fractalverse',
+    desc:'Three distinct Ethereum collections. Thematic trilogy exploring digital afterlife, meta-identity, and fractal self-reference.',
+    cat:'ETH NFT', cl:'var(--nv)', col:'rgba(154,122,255,0.12)'
+  },
+  {
+    date:'2022',
+    title:'memoriesareforever · f-note-sax',
+    desc:'Ethereum collection series. Memory as permanent data structure. Sound-meets-image in the f-note-sax companion piece.',
+    cat:'ETH NFT', cl:'var(--nv)', col:'rgba(154,122,255,0.12)'
+  },
+  {
+    date:'2023',
+    title:'savagexnation (Base Network)',
+    desc:'Base network deployment. Culture-forward identity collection. High-volume multi-edition series.',
+    cat:'BASE NFT', cl:'var(--ng2)', col:'rgba(122,255,71,0.10)'
+  },
+  {
+    date:'2023',
+    title:'why-do-i-create · create-my-reality',
+    desc:'Two-part philosophical series on Base. Interrogates the source and intent of creative output as subject matter.',
+    cat:'BASE NFT', cl:'var(--ng2)', col:'rgba(122,255,71,0.10)'
+  },
+  {
+    date:'2024',
+    title:'Portrait Study 2024',
+    desc:'Self-portrait investigation. 3.9MB archival-grade documentation. The figure as symbolic central axis of the practice.',
+    cat:'PHYSICAL ART', cl:'var(--nv)', col:'rgba(154,122,255,0.15)'
+  },
+  {
+    date:'2024',
+    title:'eff-vol-1 · adors Collection',
+    desc:'Ethereum multi-volume series. adors explores identity through repetition. eff-vol-1 initiates an ongoing volume structure.',
+    cat:'ETH NFT', cl:'var(--nv)', col:'rgba(154,122,255,0.12)'
+  },
+  {
+    date:'2026',
+    title:'Living Swarm — Synthesis Hackathon',
+    desc:'Autonomous AI agent architecture. Multi-node swarm intelligence with persistent memory, threat detection, and real-time market analysis. Synthesis 2026 entrant.',
+    cat:'AI / TECHNOLOGY', cl:'var(--ng2)', col:'rgba(122,255,71,0.12)'
+  },
+];
+
+const wg = document.getElementById('workGrid');
+works.forEach(w => {
+  const d = document.createElement('div');
+  d.className = 'gl work-card';
+  d.innerHTML = `
+    <div class="work-img" style="background:linear-gradient(135deg,var(--v),${w.col});border-bottom:1px solid ${w.cl}18">
+      <div style="font-family:var(--fm);font-size:7px;color:${w.cl}40;letter-spacing:.15em;text-transform:uppercase;text-align:center;padding:8px">[ ${w.cat} ]<br><span style="font-size:18px;opacity:.15;display:block;margin-top:8px">◈</span></div>
+    </div>
+    <div class="work-meta">
+      <div class="work-date">${w.date}</div>
+      <div class="work-title">${w.title}</div>
+      <div class="work-desc">${w.desc}</div>
+      <span class="work-cat" style="background:${w.cl}12;color:${w.cl};border:1px solid ${w.cl}20">${w.cat}</span>
+    </div>`;
+  wg.appendChild(d);
+});
+
+// ══════════════════════════════════════════════════
+// TIMELINE — 20-Year Arc
+// ══════════════════════════════════════════════════
+const timeline = [
+  {y:'2004–2006',t:'Origin Signal',d:'First creative experiments. Raw expression, early photography, the pattern recognition that would define everything.',tag:'ORIGIN',tc:'var(--ng)'},
+  {y:'2008',t:'Fashion Frequency',d:'Clothing as communication system. First collections conceptualized. The body understood as broadcast antenna.',tag:'FASHION',tc:'var(--ng)'},
+  {y:'2010',t:'Camera as Third Eye',d:'Cinematography integrated. Film becomes the translation layer between inner architecture and shared perception.',tag:'CINEMA',tc:'var(--nc)'},
+  {y:'2012',t:'Physical Art Emergence',d:'Mixed-media canvas works. Digital process meets material form. Seven documented studies.',tag:'ART',tc:'var(--nv)'},
+  {y:'2014',t:'Vertical Format Pioneer',d:'Vertical cinema adopted as primary format before it became industry standard. First-principles decision, not trend-following.',tag:'CINEMA',tc:'var(--nc)'},
+  {y:'2015',t:'Music Video Auteur',d:'Directed works that collapsed the boundary between performance document and art film.',tag:'CINEMA',tc:'var(--nc)'},
+  {y:'2016',t:'Wearable Philosophy',d:'Collections encoded with meaning. Each garment a manifesto. Frequency as design language.',tag:'FASHION',tc:'var(--ng)'},
+  {y:'2018',t:'First Blockchain Canvas',d:'On-chain digital art before mainstream NFT adoption. Understood digital permanence as creative medium before the market did.',tag:'BLOCKCHAIN',tc:'var(--nv)'},
+  {y:'2019',t:'Discipline Convergence',d:'Fashion, film, art, and emerging technology stop being separate practices. The unified field begins.',tag:'FUSION',tc:'rgba(255,255,255,0.4)'},
+  {y:'2020',t:'The Isolation Laboratory',d:'Pandemic period becomes forge. Deep technology stack exploration. AI as creative collaborator first recognized.',tag:'TECH',tc:'var(--ng2)'},
+  {y:'2021',t:'Multi-Chain Expansion',d:'Ethereum collections: ashgames, misoesis, afterdawn-beyondmeta, memoriesareforever. Bitcoin Ordinals inscribed from block ~69M.',tag:'BLOCKCHAIN',tc:'var(--nv)'},
+  {y:'2022',t:'Physical / Digital Simultaneity',d:'Major physical works alongside blockchain deployments. Large-format July 2022 documentation. fractalverse, adors, eff-vol-1 launched.',tag:'ART',tc:'var(--nv)'},
+  {y:'2023',t:'The Meaningful Human Machine',d:'Brand thesis crystallizes. Ancient wisdom architecture meets modern computation. Base network deployments: savagexnation, why-do-i-create.',tag:'PHILOSOPHY',tc:'rgba(0,232,255,0.6)'},
+  {y:'2024',t:'Portrait & Sovereignty',d:'Archival self-portrait study. Brand sovereignty formalized. All disciplines operating simultaneously at full power.',tag:'NOW',tc:'var(--ng)'},
+  {y:'2025',t:'Stack Activation',d:'Vertical films, sound design, somatic protocols, digital products. The full creative stack deployed in parallel.',tag:'SCALE',tc:'var(--ng)'},
+  {y:'2026',t:'Living Swarm — Synthesis',d:'Autonomous multi-agent AI system. Synthesis Hackathon entry. The technology pillar reaches sentient-architecture level.',tag:'AI',tc:'var(--ng2)'},
+];
+const tlEl=document.getElementById('timeline');
+timeline.forEach((e,i)=>{
+  const d=document.createElement('div'); d.className='tl-item';
+  d.innerHTML=`<div class="tl-dot"></div><div class="tl-year">${e.y}</div><div class="tl-title">${e.t}</div><div class="tl-desc">${e.d}</div><span class="tl-tag" style="background:${e.tc}15;color:${e.tc};border:1px solid ${e.tc}22">${e.tag}</span>`;
+  tlEl.appendChild(d);
+});
+
+// ══════════════════════════════════════════════════
+// FORECAST ENGINE
+// ══════════════════════════════════════════════════
+const Z=[{s:"Aries",d:[3,21,4,19]},{s:"Taurus",d:[4,20,5,20]},{s:"Gemini",d:[5,21,6,20]},{s:"Cancer",d:[6,21,7,22]},{s:"Leo",d:[7,23,8,22]},{s:"Virgo",d:[8,23,9,22]},{s:"Libra",d:[9,23,10,22]},{s:"Scorpio",d:[10,23,11,21]},{s:"Sagittarius",d:[11,22,12,21]},{s:"Capricorn",d:[12,22,1,19]},{s:"Aquarius",d:[1,20,2,18]},{s:"Pisces",d:[2,19,3,20]}];
+const FE={
+  sun(m,d){for(let i=0;i<12;i++){const z=Z[i],[a,b,c,e]=z.d;if(z.s==="Capricorn"?((m===12&&d>=22)||(m===1&&d<=19)):((m===a&&d>=b)||(m===c&&d<=e)))return i}return 0},
+  mp(d){let y=d.getFullYear(),m=d.getMonth()+1,dy=d.getDate(),yr=y,mo=m;if(mo<=2){yr--;mo+=12}return((2-Math.floor(yr/100)+Math.floor(Math.floor(yr/100)/4)+Math.floor(365.25*(yr+4716))+Math.floor(30.6001*(mo+1))+dy-1524.5-2451549.5)/29.53059)%1},
+  mn(p){return p<.0625?"🌑 New":p<.1875?"🌒 Waxing":p<.3125?"🌓 First Q":p<.4375?"🌔 Wax Gib":p<.5625?"🌕 Full":p<.6875?"🌖 Wane Gib":p<.8125?"🌗 Last Q":p<.9375?"🌘 Waning":"🌑 New"},
+  sol(d){const days=(d-new Date(2019,11,1))/864e5,p=(days/(11*365.25))%1;return Math.max(0,p<.45?Math.sin(p/.45*Math.PI/2):Math.cos((p-.45)/.55*Math.PI/2))},
+  kp(d,sa){const m=d.getMonth(),eq=(m===2||m===3||m===8||m===9)?1.4:1,dy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);return Math.max(0,Math.min(9,1+sa*4*eq+Math.sin(dy*.17)*.8+Math.sin(dy*.43)*.5))},
+};
+window._sex='';
+function genFC(){
+  const dob=document.getElementById('fcDob').value,loc=document.getElementById('fcLoc').value;
+  if(!dob||!loc){alert('Fill all fields');return}
+  const bday=new Date(dob),now=new Date();
+  const mp=FE.mp(now),sa=FE.sol(now),kp=FE.kp(now,sa);
+  const si=FE.sun(bday.getMonth()+1,bday.getDate());
+  document.getElementById('pM').textContent=FE.mn(mp);
+  document.getElementById('pK').textContent=kp.toFixed(1);document.getElementById('pK').style.color=kp>5?'var(--nr)':kp>3?'var(--ng)':'var(--ng2)';
+  document.getElementById('pS').textContent=(sa*100).toFixed(0)+'%';
+  document.getElementById('pG').textContent=kp>5?`High geomagnetic activity (Kp ${kp.toFixed(1)}). Ground before initiating. Avoid major decisions.`:mp>.4&&mp<.6?`Full Moon window active. Heightened signal clarity for ${Z[si].s} sun. Channel creatively.`:`${Z[si].s} solar architecture. Stable field. ${(sa*100).toFixed(0)}% solar cycle momentum.`;
+  document.getElementById('fcBl').style.display='flex';
+}
+function pay(a){
+  const link = a < 5 ? window.STRIPE_099 : window.STRIPE_1999;
+  if(link.includes('YOUR')){if(confirm(`Stripe link not configured.\n$${a.toFixed(2)} tier — simulate unlock?`)){document.getElementById('fcBl').classList.add('off')}}
+  else window.open(link,'_blank');
+}
+
+// ══════════════════════════════════════════════════
+// ADMIN PANEL — ETH Wallet Signature Auth
+// ══════════════════════════════════════════════════
+async function connectWallet() {
+  const status = document.getElementById('adminStatus');
+  status.textContent = 'Connecting...';
+  try {
+    if(!window.ethereum) throw new Error('No wallet detected. Install MetaMask or Rabby.');
+    await window.ethereum.request({method:'eth_requestAccounts'});
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer   = provider.getSigner();
+    const address  = await signer.getAddress();
+    status.textContent = `Signing with ${address.slice(0,6)}···${address.slice(-4)}`;
+    const msg = `PHENOMENAL MARK ADMIN ACCESS\nTimestamp: ${Date.now()}`;
+    const sig = await signer.signMessage(msg);
+    const recovered = ethers.utils.verifyMessage(msg, sig);
+    if(recovered.toLowerCase() !== ADMIN_WALLET.toLowerCase()) {
+      status.textContent = '✗ Unauthorized wallet';
+      setTimeout(()=>{status.textContent=''},3000);
+      return;
+    }
+    document.getElementById('adminPrompt').classList.remove('show');
+    document.getElementById('adminPanel').classList.add('open');
+    status.textContent = '';
+  } catch(e) {
+    status.textContent = `✗ ${e.message.slice(0,60)}`;
+  }
+}
+function closeAdmin(){document.getElementById('adminPanel').classList.remove('open')}
+</script>
+</body>
+</html>
