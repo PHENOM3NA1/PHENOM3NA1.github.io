@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHENOMENAL MARK — ART / BLOCKCHAIN</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script>
+document.addEventListener('contextmenu', e=>e.preventDefault());
+document.addEventListener('keydown', e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&'IJC'.includes(e.key))||(e.ctrlKey&&'su'.includes(e.key)))e.preventDefault()});
+document.addEventListener('dragstart',e=>e.preventDefault());
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--nc:#00e8ff;--nv:#9a7aff;--ng:#ffd080;--ng2:#7aff47;--nr:#ff5588;--bg:#010208;--glass:rgba(8,12,24,0.45)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#fff;font-family:'Outfit',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:24px;padding:12px;background:rgba(1,2,8,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,232,255,0.04)}
+nav a{font-size:7px;color:rgba(0,232,255,0.4);letter-spacing:.25em;text-decoration:none;font-family:'JetBrains Mono',monospace;transition:color .3s}
+nav a:hover{color:#00e8ff}
+
+/* HERO STRIP */
+.page-hero{position:relative;overflow:hidden;padding:140px 40px 80px;text-align:center;border-bottom:1px solid rgba(0,232,255,0.06)}
+.page-hero canvas{position:absolute;inset:0;z-index:0;opacity:0.5}
+.hero-content{position:relative;z-index:1}
+.page-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(44px,10vw,120px);letter-spacing:.05em;background:linear-gradient(135deg,var(--nc),var(--nv));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.page-subtitle{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,232,255,0.45);letter-spacing:.4em;margin-top:16px}
+
+/* SECTIONS */
+.section{padding:70px 40px;max-width:1300px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(0,232,255,0.4);letter-spacing:.5em;margin-bottom:8px;text-transform:uppercase}
+.section-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(22px,4vw,40px);letter-spacing:.04em;margin-bottom:40px}
+.section-divider{border:none;border-top:1px solid rgba(0,232,255,0.06);margin:0}
+
+/* PHYSICAL ART GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.gallery-card{background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(154,122,255,0.1);overflow:hidden;transition:all .35s;cursor:pointer}
+.gallery-card:hover{border-color:rgba(154,122,255,0.35);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.gallery-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;filter:saturate(0.8)contrast(1.1)}
+.gallery-card:hover img{filter:saturate(1.1)contrast(1.2)}
+.gallery-info{padding:16px 20px}
+.gallery-year{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--nv);letter-spacing:.3em;margin-bottom:6px}
+.gallery-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:16px}
+
+/* ORDINALS */
+.ordinals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.ord-card{background:rgba(255,208,128,0.03);border:1px solid rgba(255,208,128,0.12);padding:20px;transition:all .3s;position:relative}
+.ord-card:hover{border-color:rgba(255,208,128,0.35);background:rgba(255,208,128,0.06);transform:translateY(-2px)}
+.ord-label{font-family:'JetBrains Mono',monospace;font-size:7px;color:rgba(255,208,128,0.5);letter-spacing:.3em;margin-bottom:8px}
+.ord-id{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ng);word-break:break-all;margin-bottom:10px}
+.ord-links{display:flex;gap:8px;flex-wrap:wrap}
+.ord-link{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ng);text-decoration:none;border:1px solid rgba(255,208,128,0.25);padding:3px 8px;transition:all .25s}
+.ord-link:hover{background:rgba(255,208,128,0.1);border-color:var(--ng)}
+
+/* ORBITALS */
+.orbital-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.orbital-card{background:rgba(255,208,128,0.02);border:1px solid rgba(255,208,128,0.15);padding:24px;transition:all .3s}
+.orbital-card:hover{border-color:var(--ng);transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,208,128,0.08)}
+.orbital-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--ng);margin-bottom:6px}
+.orbital-id{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,208,128,0.5);margin-bottom:12px}
+
+/* ETH COLLECTIONS */
+.eth-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.eth-card{background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(154,122,255,0.12);padding:24px;transition:all .35s}
+.eth-card:hover{border-color:rgba(154,122,255,0.4);transform:translateY(-3px);box-shadow:0 15px 40px rgba(154,122,255,0.08)}
+.eth-chain{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.3em;margin-bottom:8px}
+.eth-name{font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;margin-bottom:6px}
+.eth-contract{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.25);word-break:break-all;margin-bottom:12px;line-height:1.6}
+.eth-links{display:flex;gap:8px;flex-wrap:wrap}
+.eth-link{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--nv);text-decoration:none;border:1px solid rgba(154,122,255,0.25);padding:4px 10px;transition:all .25s}
+.eth-link:hover{background:rgba(154,122,255,0.1);border-color:var(--nv)}
+.chain-eth{color:var(--nv)}
+.chain-base{color:var(--ng2)}
+
+footer{padding:60px 40px;text-align:center;border-top:1px solid rgba(0,232,255,0.04)}
+footer p{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.12);letter-spacing:.3em}
+</style>
+</head>
+<body>
+
+<div id="pg-overlay" style="position:fixed;inset:0;background:#010208;z-index:9998;opacity:1;pointer-events:none;transition:opacity 0.6s ease"></div>
+
+<nav>
+  <a href="index.html">HERO</a>
+  <a href="world.html">WORLD</a>
+  <a href="art.html">ART</a>
+  <a href="cinema.html">CINEMA</a>
+  <a href="fashion.html">FASHION</a>
+  <a href="forecast.html">FORECAST</a>
+</nav>
+
+<div class="page-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="page-title">ART / BLOCKCHAIN</div>
+    <div class="page-subtitle">PHYSICAL WORKS &middot; BITCOIN ORDINALS &middot; ETHEREUM &middot; BASE NETWORK</div>
+  </div>
+</div>
+
+<!-- PHYSICAL ART -->
+<div class="section">
+  <div class="section-label">01</div>
+  <div class="section-title">PHYSICAL ART</div>
+  <div class="gallery-grid">
+    <div class="gallery-card">
+      <img src="img/physical-2017-a.png" alt="Physical Study 2017 A">
+      <div class="gallery-info">
+        <div class="gallery-year">2017</div>
+        <div class="gallery-name">Physical Study A</div>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <img src="img/physical-2017-b.png" alt="Physical Study 2017 B">
+      <div class="gallery-info">
+        <div class="gallery-year">2017</div>
+        <div class="gallery-name">Physical Study B</div>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <img src="img/physical-2022-a.png" alt="Physical Study 2022 A">
+      <div class="gallery-info">
+        <div class="gallery-year">2022</div>
+        <div class="gallery-name">Physical Study A</div>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <img src="img/physical-2022-b.png" alt="Physical Study 2022 B">
+      <div class="gallery-info">
+        <div class="gallery-year">2022</div>
+        <div class="gallery-name">Physical Study B</div>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <img src="img/portrait-2024.png" alt="Portrait Study 2024">
+      <div class="gallery-info">
+        <div class="gallery-year">2024</div>
+        <div class="gallery-name">Portrait Study</div>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="window.open('https://ordinals.com/','_blank')" style="cursor:pointer">
+      <img src="img/ordinal.jpg" alt="Bitcoin Ordinal">
+      <div class="gallery-info">
+        <div class="gallery-year">BITCOIN ORDINAL</div>
+        <div class="gallery-name">On-Chain Inscription</div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="section-divider">
+
+<!-- BITCOIN ORDINALS -->
+<div class="section">
+  <div class="section-label">02</div>
+  <div class="section-title" style="color:var(--ng)">BITCOIN ORDINALS</div>
+
+  <div style="margin-bottom:32px">
+    <div class="section-label" style="margin-bottom:16px">MAIN INSCRIPTIONS</div>
+    <div class="ordinals-grid">
+      <div class="ord-card">
+        <div class="ord-label">INSCRIPTION</div>
+        <div class="ord-id">88017854</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/88017854" target="_blank" class="ord-link">ORDINALS</a>
+          <a href="https://ordiscan.com/inscription/88017854" target="_blank" class="ord-link">ORDISCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">INSCRIPTION</div>
+        <div class="ord-id">87946489</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/87946489" target="_blank" class="ord-link">ORDINALS</a>
+          <a href="https://ordiscan.com/inscription/87946489" target="_blank" class="ord-link">ORDISCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">INSCRIPTION</div>
+        <div class="ord-id">70890911</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/70890911" target="_blank" class="ord-link">ORDINALS</a>
+          <a href="https://ordiscan.com/inscription/70890911" target="_blank" class="ord-link">ORDISCAN</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label" style="margin-bottom:16px">228P SERIES</div>
+    <div class="ordinals-grid">
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">78733</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/78733" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/78733" target="_blank" class="ord-link">SCAN</a>
+          <a href="https://ord.xverse.app/inscription/78733" target="_blank" class="ord-link">XVERSE</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">115668</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/115668" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/115668" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">147011</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/147011" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/147011" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">137056</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/137056" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/137056" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">83690798</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/83690798" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/83690798" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">14017261</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/14017261" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/14017261" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">72611985</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/72611985" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/72611985" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">75938353</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/75938353" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/75938353" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">77099189</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/77099189" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/77099189" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">77873552</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/77873552" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/77873552" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">77559500</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/77559500" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/77559500" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">69527168</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/69527168" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/69527168" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">69218256</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/69218256" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/69218256" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">69454630</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/69454630" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/69454630" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">69527166</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/69527166" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/69527166" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">80940851</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/80940851" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/80940851" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">77007062</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/77007062" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/77007062" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">77006294</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/77006294" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/77006294" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">70859322</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/70859322" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/70859322" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+      <div class="ord-card">
+        <div class="ord-label">228P</div>
+        <div class="ord-id">69527169</div>
+        <div class="ord-links">
+          <a href="https://ordinals.com/inscription/69527169" target="_blank" class="ord-link">ORD</a>
+          <a href="https://ordiscan.com/inscription/69527169" target="_blank" class="ord-link">SCAN</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="section-divider">
+
+<!-- ORBITALS -->
+<div class="section">
+  <div class="section-label">03</div>
+  <div class="section-title" style="color:var(--ng)">ORBITALS &mdash; BITCOIN NATIVE ART</div>
+  <div class="orbital-grid">
+    <div class="orbital-card">
+      <div class="orbital-name">HYDROCARBONS Filled With G.A.S.</div>
+      <div class="orbital-id">2:68300</div>
+      <a href="https://ordiscan.com/inscription/2:68300" target="_blank" class="ord-link">VIEW ON ORDISCAN</a>
+    </div>
+    <div class="orbital-card">
+      <div class="orbital-name">Orbital YLEMENT</div>
+      <div class="orbital-id">2:68135</div>
+      <a href="https://ordiscan.com/inscription/2:68135" target="_blank" class="ord-link">VIEW ON ORDISCAN</a>
+    </div>
+    <div class="orbital-card">
+      <div class="orbital-name">ELEMENT144</div>
+      <div class="orbital-id">2:69710</div>
+      <a href="https://ordiscan.com/inscription/2:69710" target="_blank" class="ord-link">VIEW ON ORDISCAN</a>
+    </div>
+    <div class="orbital-card">
+      <div class="orbital-name">Diesel Diary</div>
+      <div class="orbital-id">2:69873</div>
+      <a href="https://ordiscan.com/inscription/2:69873" target="_blank" class="ord-link">VIEW ON ORDISCAN</a>
+    </div>
+  </div>
+</div>
+<hr class="section-divider">
+
+<!-- ETHEREUM COLLECTIONS -->
+<div class="section">
+  <div class="section-label">04</div>
+  <div class="section-title" style="color:var(--nv)">ETHEREUM COLLECTIONS</div>
+  <div class="eth-grid">
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">ashgames</div>
+      <div class="eth-contract">0x9ac9a08a8ff54e1355e5bcecfd0ead8f5d74f7d6</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/ashgames" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0x9ac9a08a8ff54e1355e5bcecfd0ead8f5d74f7d6" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">misoesis</div>
+      <div class="eth-contract">0xdbcf22b6ec5e2ed7b1a03ee815694930302d278e</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/misoesis" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0xdbcf22b6ec5e2ed7b1a03ee815694930302d278e" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-base">BASE NETWORK</div>
+      <div class="eth-name">misoesis-editions</div>
+      <div class="eth-contract">0x6b92a847401fb701f818e95b9b26e39e116a0efb</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/misoesis-editions" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">afterdawn-beyondmeta</div>
+      <div class="eth-contract">&mdash;</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/afterdawn-beyondmeta" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">welcome-2-fractalverse</div>
+      <div class="eth-contract">&mdash;</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/welcome-2-fractalverse" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">beyond-meta</div>
+      <div class="eth-contract">&mdash;</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/beyond-meta" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">memoriesareforever</div>
+      <div class="eth-contract">0xfdf03360a6739b2fbd6da97fc04a1f10b19bf8cb</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/memoriesareforever" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0xfdf03360a6739b2fbd6da97fc04a1f10b19bf8cb" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">f-note-sax-a-fomo</div>
+      <div class="eth-contract">&mdash;</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/f-note-sax-a-fomo" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">adors</div>
+      <div class="eth-contract">0xa399e2bc8337608602cad9724caf4c136b1b68d8</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/adors" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0xa399e2bc8337608602cad9724caf4c136b1b68d8" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">feiverse</div>
+      <div class="eth-contract">&mdash;</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/feiverse" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">why-do-i-create</div>
+      <div class="eth-contract">0xecd5518547043f9070facd49c984a2075f4b8662</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/why-do-i-create" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0xecd5518547043f9070facd49c984a2075f4b8662" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">why-do-i-create-2</div>
+      <div class="eth-contract">0x8259d810048bbfe92c8f379a5659daca1c1f011e</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/why-do-i-create-2-create-my-reality" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0x8259d810048bbfe92c8f379a5659daca1c1f011e" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-base">BASE NETWORK</div>
+      <div class="eth-name">savagexnation</div>
+      <div class="eth-contract">0xf0fbe86c6221aaa91a1916fde8e15424646b363c</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/savagexnation" target="_blank" class="eth-link">OPENSEA</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">metamessage-1</div>
+      <div class="eth-contract">0xd4428a908776e6f61620f937df946e55d548d208</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/metamessage-1" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0xd4428a908776e6f61620f937df946e55d548d208" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+    <div class="eth-card">
+      <div class="eth-chain chain-eth">ETH MAINNET</div>
+      <div class="eth-name">eff-vol-1</div>
+      <div class="eth-contract">0xac6689564fda7bf44e839b18728d2d6fd8b52114</div>
+      <div class="eth-links">
+        <a href="https://opensea.io/collection/eff-vol-1" target="_blank" class="eth-link">OPENSEA</a>
+        <a href="https://etherscan.io/address/0xac6689564fda7bf44e839b18728d2d6fd8b52114" target="_blank" class="eth-link">ETHERSCAN</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&#169; PHENOMENAL MARK &middot; ALL FREQUENCIES RESERVED</p>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('pg-overlay').style.opacity='0'},50)});
+function goTo(url){const o=document.getElementById('pg-overlay');o.style.opacity='1';o.style.pointerEvents='all';setTimeout(()=>window.location.href=url,600)}
+
+// Hero particle canvas
+const hc=document.getElementById('hero-canvas');
+const hctx=hc.getContext('2d');
+function resizeHero(){hc.width=hc.parentElement.offsetWidth;hc.height=hc.parentElement.offsetHeight;}
+resizeHero();window.addEventListener('resize',resizeHero);
+
+const hParticles=Array.from({length:120},()=>({
+  x:Math.random()*window.innerWidth,
+  y:Math.random()*300,
+  vx:(Math.random()-0.5)*0.4,
+  vy:(Math.random()-0.5)*0.3,
+  r:0.5+Math.random()*1.5,
+  hue:150+Math.random()*100
+}));
+
+function animHero(){
+  requestAnimationFrame(animHero);
+  hctx.clearRect(0,0,hc.width,hc.height);
+  hParticles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.hue=(p.hue+0.3)%360;
+    if(p.x<0)p.x=hc.width;if(p.x>hc.width)p.x=0;
+    if(p.y<0)p.y=hc.height;if(p.y>hc.height)p.y=0;
+    hctx.beginPath();hctx.arc(p.x,p.y,p.r,0,6.283);
+    hctx.fillStyle='hsl('+p.hue+',90%,65%)';hctx.fill();
+  });
+}
+animHero();
+</script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHENOMENAL MARK — CINEMA</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script>
+document.addEventListener('contextmenu', e=>e.preventDefault());
+document.addEventListener('keydown', e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&'IJC'.includes(e.key))||(e.ctrlKey&&'su'.includes(e.key)))e.preventDefault()});
+document.addEventListener('dragstart',e=>e.preventDefault());
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--nc:#00e8ff;--nv:#9a7aff;--ng:#ffd080;--ng2:#7aff47;--nr:#ff5588;--bg:#010208;--glass:rgba(8,12,24,0.45)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:#fff;font-family:'Outfit',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;gap:24px;padding:12px;background:rgba(1,2,8,0.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,232,255,0.04)}
+nav a{font-size:7px;color:rgba(0,232,255,0.4);letter-spacing:.25em;text-decoration:none;font-family:'JetBrains Mono',monospace;transition:color .3s}
+nav a:hover{color:#00e8ff}
+
+/* FILM STRIP HERO */
+.cinema-hero{position:relative;min-height:340px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid rgba(0,232,255,0.04)}
+.filmstrip-top,.filmstrip-bottom{position:absolute;left:0;right:0;height:32px;background:repeating-linear-gradient(90deg,rgba(0,232,255,0.08) 0px,rgba(0,232,255,0.08) 20px,transparent 20px,transparent 36px);border-top:1px solid rgba(0,232,255,0.1);border-bottom:1px solid rgba(0,232,255,0.1)}
+.filmstrip-top{top:0}
+.filmstrip-bottom{bottom:0}
+.cinema-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,232,255,0.03),rgba(0,0,0,0),rgba(154,122,255,0.03));z-index:0}
+.cinema-hero-content{position:relative;z-index:1;text-align:center;padding:80px 40px}
+.cinema-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(60px,14vw,160px);letter-spacing:.04em;line-height:1;background:linear-gradient(180deg,#fff 0%,rgba(0,232,255,0.6) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cinema-sub{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(0,232,255,0.4);letter-spacing:.5em;margin-top:12px}
+
+/* SECTIONS */
+.section{padding:70px 40px;max-width:1200px;margin:0 auto}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(0,232,255,0.4);letter-spacing:.5em;margin-bottom:8px}
+.section-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(22px,3.5vw,38px);letter-spacing:.04em;margin-bottom:40px}
+
+/* FILM CARDS */
+.films-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.film-card{background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(0,232,255,0.08);overflow:hidden;transition:all .35s;display:flex;flex-direction:column}
+.film-card:hover{border-color:rgba(0,232,255,0.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.film-thumb{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,rgba(0,5,16,0.9),rgba(0,20,30,0.9));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.film-thumb::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,232,255,0.02) 2px,rgba(0,232,255,0.02) 4px)}
+.film-play{width:52px;height:52px;border:1px solid rgba(0,232,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--nc);font-size:18px;position:relative;z-index:1;transition:all .3s}
+.film-card:hover .film-play{background:rgba(0,232,255,0.1);border-color:var(--nc);box-shadow:0 0 30px rgba(0,232,255,0.2)}
+.film-platform{position:absolute;top:12px;right:12px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.2em;padding:3px 8px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5)}
+.film-info{padding:24px}
+.film-roles{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.role-badge{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.2em;padding:3px 8px;border:1px solid;text-transform:uppercase}
+.role-director{border-color:rgba(0,232,255,0.3);color:var(--nc)}
+.role-editor{border-color:rgba(154,122,255,0.3);color:var(--nv)}
+.role-dp{border-color:rgba(255,208,128,0.3);color:var(--ng)}
+.role-producer{border-color:rgba(122,255,71,0.3);color:var(--ng2)}
+.role-creative{border-color:rgba(255,85,136,0.3);color:var(--nr)}
+.role-bts{border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.5)}
+.role-1ad{border-color:rgba(255,208,128,0.25);color:rgba(255,208,128,0.7)}
+.film-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px}
+.film-meta{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:.2em;margin-bottom:14px}
+.film-btn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--nc);text-decoration:none;letter-spacing:.25em;border:1px solid rgba(0,232,255,0.25);padding:7px 16px;transition:all .3s;margin-top:auto}
+.film-btn:hover{background:rgba(0,232,255,0.08);border-color:var(--nc)}
+
+/* INSTAGRAM SECTION */
+.reels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.reel-card{background:var(--glass);backdrop-filter:blur(18px);border:1px solid rgba(154,122,255,0.1);overflow:hidden;transition:all .35s}
+.reel-card:hover{border-color:rgba(154,122,255,0.3);transform:translateY(-3px)}
+.reel-thumb{width:100%;aspect-ratio:9/16;max-height:320px;background:linear-gradient(180deg,rgba(0,5,16,0.95),rgba(10,0,20,0.95));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.reel-thumb::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(154,122,255,0.015) 3px,rgba(154,122,255,0.015) 6px)}
+.reel-ig{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.4);letter-spacing:.2em}
+.reel-info{padding:20px}
+.reel-id{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(154,122,255,0.5);letter-spacing:.2em;margin-bottom:10px}
+.reel-roles{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.reel-btn{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--nv);text-decoration:none;letter-spacing:.2em;border:1px solid rgba(154,122,255,0.25);padding:7px 16px;transition:all .3s}
+.reel-btn:hover{background:rgba(154,122,255,0.08);border-color:var(--nv)}
+
+.section-divider{border:none;border-top:1px solid rgba(0,232,255,0.05);margin:0}
+footer{padding:60px 40px;text-align:center;border-top:1px solid rgba(0,232,255,0.04)}
+footer p{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.12);letter-spacing:.3em}
+</style>
+</head>
+<body>
+
+<div id="pg-overlay" style="position:fixed;inset:0;background:#010208;z-index:9998;opacity:1;pointer-events:none;transition:opacity 0.6s ease"></div>
+
+<nav>
+  <a href="index.html">HERO</a>
+  <a href="world.html">WORLD</a>
+  <a href="art.html">ART</a>
+  <a href="cinema.html">CINEMA</a>
+  <a href="fashion.html">FASHION</a>
+  <a href="forecast.html">FORECAST</a>
+</nav>
+
+<!-- HERO -->
+<div class="cinema-hero">
+  <div class="filmstrip-top"></div>
+  <div class="cinema-hero-bg"></div>
+  <div class="cinema-hero-content">
+    <div class="cinema-title">CINEMA</div>
+    <div class="cinema-sub">DIRECTOR &middot; EDITOR &middot; CINEMATOGRAPHER &middot; PRODUCER &middot; CREATIVE</div>
+  </div>
+  <div class="filmstrip-bottom"></div>
+</div>
+
+<!-- FEATURE FILMS -->
+<div class="section">
+  <div class="section-label">01 &mdash; FEATURE WORKS</div>
+  <div class="section-title">FILMS &amp; PRODUCTIONS</div>
+  <div class="films-grid">
+
+    <!-- Vimeo 343265140 -->
+    <div class="film-card">
+      <div class="film-thumb">
+        <div class="film-platform">VIMEO</div>
+        <div class="film-play">&#9654;</div>
+      </div>
+      <div class="film-info">
+        <div class="film-roles">
+          <span class="role-badge role-director">DIRECTOR</span>
+          <span class="role-badge role-editor">EDITOR</span>
+          <span class="role-badge role-dp">CINEMATOGRAPHER</span>
+          <span class="role-badge role-creative">CREATIVE</span>
+        </div>
+        <div class="film-title">Feature Film 343265140</div>
+        <div class="film-meta">VIMEO &middot; FULL PRODUCTION</div>
+        <a href="https://vimeo.com/343265140?fl=pl&fe=sh" target="_blank" class="film-btn">WATCH ON VIMEO &#x2192;</a>
+      </div>
+    </div>
+
+    <!-- Vimeo 69104510 -->
+    <div class="film-card">
+      <div class="film-thumb">
+        <div class="film-platform">VIMEO</div>
+        <div class="film-play">&#9654;</div>
+      </div>
+      <div class="film-info">
+        <div class="film-roles">
+          <span class="role-badge role-director">DIRECTOR</span>
+          <span class="role-badge role-editor">EDITOR</span>
+          <span class="role-badge role-dp">CINEMATOGRAPHER</span>
+          <span class="role-badge role-creative">CREATIVE</span>
+        </div>
+        <div class="film-title">Feature Film 69104510</div>
+        <div class="film-meta">VIMEO &middot; FULL PRODUCTION</div>
+        <a href="https://vimeo.com/69104510?fl=pl&fe=sh" target="_blank" class="film-btn">WATCH ON VIMEO &#x2192;</a>
+      </div>
+    </div>
+
+    <!-- YouTube QPaAwmSaYdE -->
+    <div class="film-card">
+      <div class="film-thumb">
+        <div class="film-platform">YOUTUBE</div>
+        <div class="film-play">&#9654;</div>
+      </div>
+      <div class="film-info">
+        <div class="film-roles">
+          <span class="role-badge role-producer">PRODUCER</span>
+          <span class="role-badge role-1ad">1ST AD</span>
+          <span class="role-badge role-bts">BTS</span>
+        </div>
+        <div class="film-title">Production QPaAwmSaYdE</div>
+        <div class="film-meta">YOUTUBE &middot; PRODUCTION</div>
+        <a href="https://www.youtube.com/watch?v=QPaAwmSaYdE" target="_blank" class="film-btn">WATCH ON YOUTUBE &#x2192;</a>
+      </div>
+    </div>
+
+    <!-- YouTube V1x0sYZLY4s -->
+    <div class="film-card">
+      <div class="film-thumb">
+        <div class="film-platform">YOUTUBE</div>
+        <div class="film-play">&#9654;</div>
+      </div>
+      <div class="film-info">
+        <div class="film-roles">
+          <span class="role-badge role-editor">EDITOR</span>
+        </div>
+        <div class="film-title">Edit V1x0sYZLY4s</div>
+        <div class="film-meta">YOUTUBE &middot; EDITORIAL</div>
+        <a href="https://youtu.be/V1x0sYZLY4s?si=Sw05C6hgTB1BMoxK" target="_blank" class="film-btn">WATCH ON YOUTUBE &#x2192;</a>
+      </div>
+    </div>
+
+    <!-- YouTube X5wDRQWvTjI -->
+    <div class="film-card">
+      <div class="film-thumb">
+        <div class="film-platform">YOUTUBE</div>
+        <div class="film-play">&#9654;</div>
+      </div>
+      <div class="film-info">
+        <div class="film-roles">
+          <span class="role-badge role-editor">EDITOR</span>
+        </div>
+        <div class="film-title">Edit X5wDRQWvTjI</div>
+        <div class="film-meta">YOUTUBE &middot; EDITORIAL</div>
+        <a href="https://www.youtube.com/watch?v=X5wDRQWvTjI" target="_blank" class="film-btn">WATCH ON YOUTUBE &#x2192;</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<hr class="section-divider">
+
+<!-- INSTAGRAM REELS -->
+<div class="section">
+  <div class="section-label">02 &mdash; SHORT FORM</div>
+  <div class="section-title">INSTAGRAM REELS</div>
+  <div class="reels-grid">
+
+    <div class="reel-card">
+      <div class="reel-thumb">
+        <div class="reel-ig">INSTAGRAM REEL</div>
+        <div class="film-play" style="border-color:rgba(154,122,255,0.4);color:var(--nv)">&#9654;</div>
+      </div>
+      <div class="reel-info">
+        <div class="reel-id">DVeb41WjFzK</div>
+        <div class="reel-roles">
+          <span class="role-badge role-director">DIRECTOR</span>
+          <span class="role-badge role-editor">EDITOR</span>
+          <span class="role-badge role-dp">CINEMATOGRAPHER</span>
+          <span class="role-badge role-creative">CREATIVE</span>
+        </div>
+        <a href="https://www.instagram.com/reel/DVeb41WjFzK/" target="_blank" class="reel-btn">VIEW ON INSTAGRAM &#x2192;</a>
+      </div>
+    </div>
+
+    <div class="reel-card">
+      <div class="reel-thumb">
+        <div class="reel-ig">INSTAGRAM REEL</div>
+        <div class="film-play" style="border-color:rgba(154,122,255,0.4);color:var(--nv)">&#9654;</div>
+      </div>
+      <div class="reel-info">
+        <div class="reel-id">DQe0DnoEdox</div>
+        <div class="reel-roles">
+          <span class="role-badge role-producer">PRODUCER</span>
+          <span class="role-badge role-1ad">1ST AD</span>
+          <span class="role-badge role-bts">BTS</span>
+        </div>
+        <a href="https://www.instagram.com/reel/DQe0DnoEdox/" target="_blank" class="reel-btn">VIEW ON INSTAGRAM &#x2192;</a>
+      </div>
+    </div>
+
+    <div class="reel-card">
+      <div class="reel-thumb">
+        <div class="reel-ig">INSTAGRAM REEL</div>
+        <div class="film-play" style="border-color:rgba(154,122,255,0.4);color:var(--nv)">&#9654;</div>
+      </div>
+      <div class="reel-info">
+        <div class="reel-id">DKzkz7Ixrkh</div>
+        <div class="reel-roles">
+          <span class="role-badge role-director">DIRECTOR</span>
+          <span class="role-badge role-editor">EDITOR</span>
+          <span class="role-badge role-dp">CINEMATOGRAPHER</span>
+          <span class="role-badge role-creative">CREATIVE</span>
+        </div>
+        <a href="https://www.instagram.com/reel/DKzkz7Ixrkh/" target="_blank" class="reel-btn">VIEW ON INSTAGRAM &#x2192;</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>&#169; PHENOMENAL MARK &middot; ALL FREQUENCIES RESERVED</p>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('pg-overlay').style.opacity='0'},50)});
+function goTo(url){const o=document.getElementById('pg-overlay');o.style.opacity='1';o.style.pointerEvents='all';setTimeout(()=>window.location.href=url,600)}
+</script>
+</body>
+</html>
